@@ -84,6 +84,9 @@ const deletePhoto = async (req, res) => {
       res.status(200).json({ ok: true, message: 'Éxito!!', data: result });
     }   else {
       result = await Photo.deleteMany({ userName: userName });
+      if (result.deletedCount === 0) {
+        return res.status(404).json({ ok: false, message: 'Usuario no encontrado' });
+      }
       console.log(result);
       res.status(200).json({ ok: true, message: 'Éxito!!', data: result });
     }
